@@ -6,6 +6,6 @@ const instance = axios.create({
 
 export const fetchCars = async () => {
   const { data } = await instance.get('/advert');
-  console.log('data :>> ', data);
+  // console.log('data :>> ', data);
   return data;
 };
