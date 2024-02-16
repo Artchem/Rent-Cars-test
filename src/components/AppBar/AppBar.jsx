@@ -1,8 +1,6 @@
 import { StyledNav, StyledNavLink } from './AppBar.styled';
 
 function AppBar() {
-  //   const isLoggedIn = useSelector(selectIsLoggedIn);
-  // console.log('isLoggedIn  Navigation :>> ', isLoggedIn);
   return (
     <>
       <StyledNav>

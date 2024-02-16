@@ -2,18 +2,19 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import AppBar from '../AppBar/AppBar';
 import Loader from '../Loader/Loader';
+import { StyledHeader, StyledMain } from './Layout.styled';
 
 const Layout = () => {
   return (
     <>
-      <header>
+      <StyledHeader>
         <AppBar />
-      </header>
-      <main>
+      </StyledHeader>
+      <StyledMain>
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
-      </main>
+      </StyledMain>
     </>
   );
 };

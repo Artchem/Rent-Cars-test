@@ -1,52 +1,55 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAddress } from '../../helpers/getAddress';
 import {
-  selectCars,
+  getFiltredCars,
   selectIsLoading,
 } from '../../redux/carsDetails/carsSelectors';
 import { getCars } from '../../redux/carsDetails/carsThunk';
-import { Button } from '../Button/Button';
 
+import defaultCar from '../../assets/default.jpg';
 import Loader from '../Loader/Loader';
 import {
+  ImgWrapper,
   SpanModel,
+  StyledBtn,
   StyledList,
   TextBottom,
   TextTop,
 } from './CatalogCars.styled';
+import { ModalCar } from '../ModalCar/ModalCar';
 
 function CatalogCars() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
-
-  const cars = useSelector(selectCars);
-  console.log('cars :>> ', cars);
-
-  const defaultImg =
-    'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
+  const filteredCars = useSelector(getFiltredCars);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCar, setSelectedCar] = useState(null);
 
   useEffect(() => {
     dispatch(getCars());
   }, [dispatch]);
 
-  const changeAddress = data => {
-    // const text = 'пример тнкста для преобраз в массив слов';
+  const openModal = car => {
+    setIsModalOpen(true);
+    setSelectedCar(car);
+    // console.log('modal open :>> ');
+  };
 
-    const arrey = data.split(' ').slice(-2);
-    const firstWord = arrey[0].slice(0, arrey[0].length - 1);
-    const secondWord = arrey[1];
-    // console.log('firstWord :>> ', firstWord);
-    // console.log('secondWord :>> ', secondWord);
-    const result = `${firstWord} | ${secondWord}`;
-    return result;
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // console.log('modal close :>> ');
   };
 
   return (
     <>
       <StyledList>
-        {cars.map(car => (
+        {filteredCars.map(car => (
           <li key={car.id}>
-            <img src={car.img ? car.img : defaultImg} alt={car.description} />
+            <ImgWrapper>
+              <img src={car.img ? car.img : defaultCar} alt={car.description} />
+            </ImgWrapper>
+
             <div>
               <TextTop>
                 <div>
@@ -57,17 +60,27 @@ function CatalogCars() {
               </TextTop>
               <TextBottom>
                 <p>
-                  {changeAddress(car.address)} | {car.rentalCompany} | Premium
+                  {getAddress(car.address)} | {car.rentalCompany} | Premium
                 </p>
                 <p>
                   {car.type} | {car.model} | {car.mileage}
                 </p>
               </TextBottom>
             </div>
-            <Button></Button>
+            <StyledBtn type="button" onClick={() => openModal(car)}>
+              Learn more
+            </StyledBtn>
           </li>
         ))}
       </StyledList>
+      {isModalOpen && (
+        <ModalCar
+          car={selectedCar}
+          onClose={() => {
+            closeModal();
+          }}
+        />
+      )}
       {isLoading && <Loader />}
     </>
   );
