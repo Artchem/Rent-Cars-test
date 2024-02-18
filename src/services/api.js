@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://653421eee1b6f4c5904694f4.mockapi.io',
+  baseURL: '//65d1182bab7beba3d5e41626.mockapi.io',
 });
 
-export const fetchCars = async () => {
-  const { data } = await instance.get('/advert');
+export const fetchCars = async (page = 1) => {
+  const { data } = await instance.get(`/adverts?page=${page}&limit=12`);
   // console.log('data :>> ', data);
   return data;
 };

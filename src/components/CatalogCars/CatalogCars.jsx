@@ -1,87 +1,57 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAddress } from '../../helpers/getAddress';
 import {
   getFiltredCars,
+  selectCurrentPage,
+  selectError,
   selectIsLoading,
 } from '../../redux/carsDetails/carsSelectors';
 import { getCars } from '../../redux/carsDetails/carsThunk';
-
-import defaultCar from '../../assets/default.jpg';
 import Loader from '../Loader/Loader';
-import {
-  ImgWrapper,
-  SpanModel,
-  StyledBtn,
-  StyledList,
-  TextBottom,
-  TextTop,
-} from './CatalogCars.styled';
-import { ModalCar } from '../ModalCar/ModalCar';
+import { BtnLoadMore, Conteiner, StyledList } from './CatalogCars.styled';
+import CarItem from '../CarItem/CarItem';
+import { setCurrentPage } from '../../redux/carsDetails/currentPageSlice';
 
 function CatalogCars() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
   const filteredCars = useSelector(getFiltredCars);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCar, setSelectedCar] = useState(null);
+  const currentPage = useSelector(selectCurrentPage);
+  // const cars = useSelector(selectCars);
+
+  // console.log('cars :>> ', cars);
+  // console.log('currentPage :>> ', currentPage);
 
   useEffect(() => {
-    dispatch(getCars());
-  }, [dispatch]);
+    if (currentPage === 1 && filteredCars.length < 12) {
+      dispatch(getCars(currentPage));
+    }
+  }, [dispatch, currentPage, filteredCars]);
 
-  const openModal = car => {
-    setIsModalOpen(true);
-    setSelectedCar(car);
-    // console.log('modal open :>> ');
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    // console.log('modal close :>> ');
+  const loadMore = () => {
+    const page1 = currentPage + 1;
+    dispatch(setCurrentPage(page1));
+    dispatch(getCars(page1));
   };
 
   return (
     <>
-      <StyledList>
-        {filteredCars.map(car => (
-          <li key={car.id}>
-            <ImgWrapper>
-              <img src={car.img ? car.img : defaultCar} alt={car.description} />
-            </ImgWrapper>
+      <Conteiner>
+        <StyledList>
+          {filteredCars.map(item => (
+            <CarItem key={item.id} car={item} />
+          ))}
+        </StyledList>
+        {filteredCars.length !== 0 && (
+          <BtnLoadMore type="button" onClick={loadMore}>
+            Load more
+          </BtnLoadMore>
+        )}
 
-            <div>
-              <TextTop>
-                <div>
-                  {car.make}
-                  <SpanModel> {car.model}</SpanModel>, {car.year}
-                </div>
-                <span>{car.rentalPrice}</span>
-              </TextTop>
-              <TextBottom>
-                <p>
-                  {getAddress(car.address)} | {car.rentalCompany} | Premium
-                </p>
-                <p>
-                  {car.type} | {car.model} | {car.mileage}
-                </p>
-              </TextBottom>
-            </div>
-            <StyledBtn type="button" onClick={() => openModal(car)}>
-              Learn more
-            </StyledBtn>
-          </li>
-        ))}
-      </StyledList>
-      {isModalOpen && (
-        <ModalCar
-          car={selectedCar}
-          onClose={() => {
-            closeModal();
-          }}
-        />
-      )}
-      {isLoading && <Loader />}
+        {isLoading && <Loader />}
+        {error && <p>{error}</p>}
+      </Conteiner>
     </>
   );
 }

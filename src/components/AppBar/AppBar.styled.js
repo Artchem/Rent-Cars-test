@@ -27,7 +27,10 @@ export const StyledNavLink = styled(NavLink)`
 export const StyledNav = styled.nav`
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-right: auto;
-
+  background-color: #71ccff;
   gap: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 `;

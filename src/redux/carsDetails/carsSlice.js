@@ -3,19 +3,28 @@ import { getCars } from './carsThunk';
 
 const initialState = {
   cars: [],
+  // favorites: [],
   isLoading: false,
   error: null,
+  // allCars: [],
+  // page: 1,
 };
 
 const carsSlice = createSlice({
   name: 'cars',
   initialState,
+  // reducers: {
+  //   currentPage(state, action) {
+  //     state.page = action.payload;
+  //   },
+  // },
+
   extraReducers: builder => {
     builder
-      .addCase(getCars.fulfilled, (state, action) => {
+      .addCase(getCars.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
-        state.cars = action.payload;
+        state.cars = state.cars.concat(payload);
       })
 
       .addMatcher(isAnyOf(getCars.pending), state => {
@@ -28,3 +37,4 @@ const carsSlice = createSlice({
   },
 });
 export const carsReducer = carsSlice.reducer;
+// export const { currentPage } = carsSlice.actions;
