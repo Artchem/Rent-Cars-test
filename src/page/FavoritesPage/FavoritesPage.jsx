@@ -9,6 +9,7 @@ const FavoritePage = () => {
   return (
     <Conteiner>
       <StyledTitle>Favorite cars</StyledTitle>
+
       <Conteiner>
         <FilterCars />
       </Conteiner>

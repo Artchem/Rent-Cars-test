@@ -1,10 +1,7 @@
 import { styled } from 'styled-components';
 
-export const Conteiner = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+export const Conteiner = styled.div``;
+
 export const StyledTitle = styled.h2`
   margin-bottom: 20px;
   text-align: center;
