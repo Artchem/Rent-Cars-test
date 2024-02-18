@@ -4,7 +4,7 @@ import {
   addFavorite,
   removeFavorite,
 } from '../../redux/carsDetails/carsFavoriteSlice';
-// import { selectFavoriteCars } from '../../redux/carsDetails/carsSelectors';
+
 import {
   BtnFavorite,
   ImgWrapper,
@@ -24,9 +24,7 @@ function CarItem({ car }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  // console.log('isFavorite :>> ', isFavorite);
   const itemsFavoriteCars = useSelector(selectFavoriteCars);
-  //   console.log('itemsFavoriteCars :>> ', itemsFavoriteCars);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -39,12 +37,11 @@ function CarItem({ car }) {
   const handleFavorite = () => {
     if (!isFavorite) {
       dispatch(addFavorite(car));
-      //   console.log('isFavorite :>> ', isFavorite);
+
       setIsFavorite(true);
     } else {
       dispatch(removeFavorite(car.id));
       setIsFavorite(false);
-      //   console.log('isFavorite :>> ', isFavorite);
     }
   };
 

@@ -18,16 +18,12 @@ function CatalogCars() {
   const error = useSelector(selectError);
   const filteredCars = useSelector(getFiltredCars);
   const currentPage = useSelector(selectCurrentPage);
-  // const cars = useSelector(selectCars);
-
-  // console.log('cars :>> ', cars);
-  // console.log('currentPage :>> ', currentPage);
 
   useEffect(() => {
     if (currentPage === 1 && filteredCars.length < 12) {
       dispatch(getCars(currentPage));
     }
-  }, [dispatch, currentPage, filteredCars]);
+  }, [dispatch]);
 
   const loadMore = () => {
     const page1 = currentPage + 1;
@@ -43,7 +39,7 @@ function CatalogCars() {
             <CarItem key={item.id} car={item} />
           ))}
         </StyledList>
-        {filteredCars.length !== 0 && (
+        {filteredCars.length !== 0 && currentPage < 3 && (
           <BtnLoadMore type="button" onClick={loadMore}>
             Load more
           </BtnLoadMore>

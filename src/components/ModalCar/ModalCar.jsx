@@ -58,6 +58,13 @@ export const ModalCar = ({ onClose, car }) => {
   const conditionsArray = rentalConditions.split('\n');
   const minimalAge = conditionsArray[0].split(':');
 
+  const callButton = () => {
+    const phoneNumber = '+38 (073) 0000000';
+    if (window.confirm(`Do you want to call a ${phoneNumber} ?`)) {
+      window.location.href = 'tel' + phoneNumber;
+    }
+  };
+
   return (
     <Backdrop onClick={handleBackdropClick}>
       <ModalWindow>
@@ -152,7 +159,9 @@ export const ModalCar = ({ onClose, car }) => {
           </ul>
         </StyledConditions>
 
-        <StyledBtn type="button">Rental car</StyledBtn>
+        <StyledBtn onClick={callButton} type="button">
+          Rental car
+        </StyledBtn>
 
         <StyledBtnClose onClick={onClose} type="button">
           <svg width="24" height="24">

@@ -1,14 +1,18 @@
 import { useSelector } from 'react-redux';
 import CarItem from '../../components/CarItem/CarItem';
+import FilterCars from '../../components/FilterCars/FilterCars';
 import { selectFavoriteCars } from '../../redux/carsDetails/carsSelectors';
-import { StyledList, StyledTitle } from './FavoritesPage.styled';
+import { Conteiner, StyledList, StyledTitle } from './FavoritesPage.styled';
 
-const FavoritePage = ({ props }) => {
-  console.log('props :>> ', props);
+const FavoritePage = () => {
   const favoriteCars = useSelector(selectFavoriteCars);
   return (
-    <div>
+    <Conteiner>
       <StyledTitle>Favorite cars</StyledTitle>
+      <Conteiner>
+        <FilterCars />
+      </Conteiner>
+
       <div>
         {favoriteCars.length === 0 ? (
           <>
@@ -22,7 +26,7 @@ const FavoritePage = ({ props }) => {
           </StyledList>
         )}
       </div>
-    </div>
+    </Conteiner>
   );
 };
 
