@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import CarItem from '../../components/CarItem/CarItem';
-import FilterCars from '../../components/FilterCars/FilterCars';
+// import FilterCars from '../../components/FilterCars/FilterCars';
 import { selectFavoriteCars } from '../../redux/carsDetails/carsSelectors';
 import { Conteiner, StyledList, StyledTitle } from './FavoritesPage.styled';
 
@@ -10,9 +10,9 @@ const FavoritePage = () => {
     <Conteiner>
       <StyledTitle>Favorite cars</StyledTitle>
 
-      <Conteiner>
+      {/* <Conteiner>
         <FilterCars />
-      </Conteiner>
+      </Conteiner> */}
 
       <div>
         {favoriteCars.length === 0 ? (

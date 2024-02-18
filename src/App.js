@@ -13,15 +13,6 @@ const CatalogPage = lazy(() => import('./page/CatalogPage/CatalogPage'));
 const FavoritesPage = lazy(() => import('./page/FavoritesPage/FavoritesPage'));
 
 function App() {
-  // const dispatch = useDispatch();
-
-  // const auto = useSelector(selectCars);
-  // console.log('auto :>> ', auto);
-
-  // useEffect(() => {
-  //   dispatch(getCars());
-  // }, [dispatch]);
-
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
