@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkrent_cars_test=self.webpackChunkrent_cars_test||[]).push([[208],{9208:(n,e,t)=>{t.r(e),t.d(e,{default:()=>a});var r,s=t(4312);const c=t(360).kb.h2(r||(r=(0,s.c)(["\n  margin-bottom: 20px;\n  text-align: center;\n  font-size: 24px;\n  font-weight: 600;\n  line-height: 1.3;\n"])));var i=t(2496);const a=function(){return(0,i.jsx)(i.Fragment,{children:(0,i.jsx)("div",{children:(0,i.jsx)(c,{children:"Home page"})})})}}}]);
+//# sourceMappingURL=208.42ca041a.chunk.js.map
