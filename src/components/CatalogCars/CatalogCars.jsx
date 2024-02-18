@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getFiltredCars,
+  selectCars,
   selectCurrentPage,
   selectError,
   selectIsLoading,
@@ -18,12 +19,13 @@ function CatalogCars() {
   const error = useSelector(selectError);
   const filteredCars = useSelector(getFiltredCars);
   const currentPage = useSelector(selectCurrentPage);
+  const cars = useSelector(selectCars);
 
   useEffect(() => {
-    if (currentPage === 1 && filteredCars.length < 12) {
+    if (currentPage === 1 && cars.length < 12) {
       dispatch(getCars(currentPage));
     }
-  }, [dispatch]);
+  }, [dispatch, currentPage, cars.length]);
 
   const loadMore = () => {
     const page1 = currentPage + 1;
