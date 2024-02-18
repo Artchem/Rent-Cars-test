@@ -39,7 +39,7 @@ export const StyledNavLink = styled(NavLink)`
   align-items: center;
   justify-content: center;
 
-  width: 220px;
+  width: 225px;
   height: 20px;
   padding: 12px;
   font-size: 14px;
